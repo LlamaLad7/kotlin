@@ -123,6 +123,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect:${project.bootstrapKotlinVersion}")
     implementation(libs.gson)
     implementation(libs.kotlinx.metadataJvm)
+
+    implementation("org.jetbrains.kotlinx:kover-gradle-plugin:0.9.0-RC")
 }
 
 tasks.register("checkBuild") {

@@ -6,6 +6,7 @@ description = "Kotlin Serialization Compiler Plugin"
 plugins {
     kotlin("jvm")
     id("jps-compatible")
+    id("kotlin-kover")
 }
 
 val jsonJsIrRuntimeForTests: Configuration by configurations.creating {
@@ -113,6 +114,7 @@ projectTest(parallel = true, jUnitMode = JUnitMode.JUnit5) {
     workingDir = rootDir
     useJUnitPlatform()
     setUpJsIrBoxTests()
+    filterFirTests()
 }
 
 val generateTests by generator("org.jetbrains.kotlinx.serialization.TestGeneratorKt")

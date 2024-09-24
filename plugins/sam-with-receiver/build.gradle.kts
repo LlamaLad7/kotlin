@@ -3,6 +3,7 @@ description = "Kotlin SamWithReceiver Compiler Plugin"
 plugins {
     kotlin("jvm")
     id("jps-compatible")
+    id("kotlin-kover")
 }
 
 dependencies {
@@ -56,4 +57,5 @@ projectTest(parallel = true) {
     dependsOn(":dist")
     workingDir = rootDir
     useJUnitPlatform()
+    filterFirTests()
 }

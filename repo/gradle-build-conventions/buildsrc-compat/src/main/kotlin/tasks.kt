@@ -126,7 +126,7 @@ fun Project.projectTest(
     jUnitMode: JUnitMode = JUnitMode.JUnit4,
     maxHeapSizeMb: Int? = null,
     minHeapSizeMb: Int? = null,
-    maxMetaspaceSizeMb: Int = 512,
+    maxMetaspaceSizeMb: Int = 0,
     reservedCodeCacheSizeMb: Int = 256,
     defineJDKEnvVariables: List<JdkMajorVersion> = emptyList(),
     body: Test.() -> Unit = {},
@@ -209,7 +209,7 @@ fun Project.projectTest(
             "-XX:+HeapDumpOnOutOfMemoryError",
             "-XX:+UseCodeCacheFlushing",
             "-XX:ReservedCodeCacheSize=${reservedCodeCacheSizeMb}m",
-            "-XX:MaxMetaspaceSize=${maxMetaspaceSizeMb}m",
+//            "-XX:MaxMetaspaceSize=${maxMetaspaceSizeMb}m",
             "-XX:CICompilerCount=2",
             "-Djna.nosys=true"
         )
@@ -332,6 +332,7 @@ fun Project.confugureFirPluginAnnotationsDependency(testTask: TaskProvider<Test>
 
     testTask.configure {
         dependsOn(firPluginJvmAnnotations, firPluginJsAnnotations)
+        dependsOn(":plugins:fir-plugin-prototype:plugin-annotations:build")
         val localFirPluginJvmAnnotations: FileCollection = firPluginJvmAnnotations
         val localFirPluginJsAnnotations: FileCollection = firPluginJsAnnotations
         doFirst {
@@ -357,4 +358,10 @@ fun Project.optInToUnsafeDuringIrConstructionAPI() {
 
 fun Project.optInToObsoleteDescriptorBasedAPI() {
     optInTo("org.jetbrains.kotlin.ir.ObsoleteDescriptorBasedAPI")
+}
+
+fun Test.filterFirTests() {
+    if (project.providers.gradleProperty("kotlin.test.filter").orNull == "fir") {
+        setTestNameIncludePatterns(listOf("*Fir*", "Fir*", "*fir*"))
+    }
 }

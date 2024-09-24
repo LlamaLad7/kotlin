@@ -50,6 +50,7 @@ plugins {
     }
     `jvm-toolchains`
     alias(libs.plugins.gradle.node) apply false
+    id("kotlin-kover")
 }
 
 val isTeamcityBuild = project.kotlinBuildProperties.isTeamcityBuild
@@ -1173,4 +1174,34 @@ afterEvaluate {
 // workaround for KT-68482
 tasks.withType<org.jetbrains.kotlin.gradle.targets.js.npm.tasks.KotlinNpmInstallTask>().configureEach {
     notCompatibleWithConfigurationCache("KotlinNpmInstallTask is not compatible with Configuration Cache")
+}
+
+dependencies {
+    kover(project(":compiler:fir:analysis-tests"))
+    kover(project(":compiler:fir:checkers"))
+    kover(project(":compiler:fir:cones"))
+    kover(project(":compiler:fir:entrypoint"))
+    kover(project(":compiler:fir:fir2ir"))
+    kover(project(":compiler:fir:fir-deserialization"))
+    kover(project(":compiler:fir:fir-serialization"))
+    kover(project(":compiler:fir:java"))
+    kover(project(":compiler:fir:plugin-utils"))
+    kover(project(":compiler:fir:providers"))
+    kover(project(":compiler:fir:raw-fir:light-tree2fir"))
+    kover(project(":compiler:fir:raw-fir:psi2fir"))
+    kover(project(":compiler:fir:resolve"))
+    kover(project(":compiler:fir:semantics"))
+    kover(project(":core:compiler.common"))
+    kover(project(":compiler:resolution.common"))
+
+    kover(project(":analysis:analysis-api-fir"))
+    kover(project(":compiler:incremental-compilation-impl"))
+    kover(project(":kotlin-allopen-compiler-plugin"))
+    kover(project(":kotlin-assignment-compiler-plugin"))
+    kover(project(":plugins:fir-plugin-prototype"))
+    kover(project(":kotlinx-serialization-compiler-plugin"))
+    kover(project(":kotlin-noarg-compiler-plugin"))
+    kover(project(":kotlin-sam-with-receiver-compiler-plugin"))
+    kover(project(":kotlin-lombok-compiler-plugin"))
+    kover(project(":plugins:parcelize:parcelize-compiler"))
 }

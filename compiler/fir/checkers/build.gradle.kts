@@ -2,6 +2,7 @@ plugins {
     kotlin("jvm")
     id("jps-compatible")
     id("generators.checkers.generated-sources")
+    id("kotlin-kover")
 }
 
 dependencies {

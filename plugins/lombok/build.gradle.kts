@@ -3,6 +3,7 @@ description = "Lombok compiler plugin"
 plugins {
     kotlin("jvm")
     id("jps-compatible")
+    id("kotlin-kover")
 }
 
 dependencies {
@@ -59,6 +60,7 @@ sourceSets {
 projectTest(jUnitMode = JUnitMode.JUnit5) {
     useJUnitPlatform()
     workingDir = rootDir
+    filterFirTests()
 
     val testRuntimeClasspathFiles: FileCollection = configurations.testRuntimeClasspath.get()
     doFirst {

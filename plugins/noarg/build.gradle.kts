@@ -3,6 +3,7 @@ description = "Kotlin NoArg Compiler Plugin"
 plugins {
     kotlin("jvm")
     id("jps-compatible")
+    id("kotlin-kover")
 }
 
 dependencies {
@@ -54,4 +55,5 @@ testsJar()
 projectTest(parallel = true) {
     workingDir = rootDir
     useJUnitPlatform()
+    filterFirTests()
 }

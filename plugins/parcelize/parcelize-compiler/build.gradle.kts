@@ -6,6 +6,7 @@ plugins {
     kotlin("jvm")
     id("jps-compatible")
     id("android-sdk-provisioner")
+    id("kotlin-kover")
 }
 
 val robolectricClasspath by configurations.creating
@@ -98,6 +99,7 @@ val prepareRobolectricDependencies by tasks.registering(Copy::class) {
 
 projectTest(jUnitMode = JUnitMode.JUnit5) {
     useJUnitPlatform()
+    filterFirTests()
     dependsOn(parcelizeRuntimeForTests)
     dependsOn(robolectricClasspath)
     dependsOn(robolectricDependency)

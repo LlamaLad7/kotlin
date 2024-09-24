@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.ideaExt.idea
 plugins {
     kotlin("jvm")
     id("jps-compatible")
+    id("kotlin-kover")
 }
 
 dependencies {
@@ -74,6 +75,7 @@ projectTest(parallel = true, jUnitMode = JUnitMode.JUnit5) {
     dependsOn(":dist")
     workingDir = rootDir
     useJUnitPlatform()
+    filterFirTests()
 }.also { confugureFirPluginAnnotationsDependency(it) }
 
 testsJar()
